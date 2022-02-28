@@ -1,0 +1,15 @@
+:root{
+    --blue-purple: #BEB8EB;
+    --secondary-blue: #5299D3;
+    --primary-blue: #0B5563;
+    --page-eggshell: #fcfaf6;
+    --steel-purple: #5E5C6C;
+}
+
+body{
+    background-color: var(--page-eggshell)
+}
+
+.control{
+    width: -webkit-fill-available;
+}

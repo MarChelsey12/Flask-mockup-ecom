@@ -1,0 +1,70 @@
+{% extends 'base.html.j2' %}
+{% block title %}
+     {% if current_user.is_authenticated %}
+    Edit Profile
+    {% else %}
+    Register
+    {% endif %}
+{% endblock %}
+{% block content %}
+  {% if current_user.is_authenticated %}
+    <h1 class="title">Edit Profile</h1>
+  {% else %}
+    <h1 class="title">Register</h1>
+  {% endif %}
+</h1>
+<form action="{{url_for('auth.edit_profile') if current_user.is_authenticated else url_for('auth.register')}}" method='POST'>
+    {{  form.hidden_tag()  }}
+
+{# first #}
+    {{form.first_name.label(class="label")}} 
+    {{form.first_name(class="control", value=current_user.first_name)}} 
+
+{# lastname #}
+    {{form.last_name.label(class="label")}} 
+    {{form.last_name(class="control", value=current_user.last_name)}} 
+
+{# email #}
+    {{form.email.label(class="label")}} 
+    {{form.email(class="control", value=current_user.email)}} 
+    {% for error in form.email.errors %}
+        <small style="color:red;">{{error}}</small><br>
+    {%endfor%}
+
+{# phone #}
+    {{form.phone.label(class="label")}} 
+    {{form.phone(class="control", value=current_user.phone)}} 
+
+{# address #}
+    {{form.address.label(class="label")}} 
+    {{form.address(class="control", value=current_user.address)}} 
+
+{# city #}
+    {{form.city.label(class="label")}} 
+    {{form.city(class="control", value=current_user.city)}} 
+
+{# state #}
+    {{form.state.label(class="label")}} 
+    {{form.state(class="control", value=current_user.state)}} 
+
+{# post_code #}
+    {{form.postal_code.label(class="label")}} 
+    {{form.postal_code(class="control", value=current_user.postal_code)}} 
+
+{# password #}
+    {{form.password.label(class="label")}} 
+    {{form.password(class="control")}} 
+
+{# confirm password #}
+    {{form.confirm_password.label(class="label")}} 
+    {{form.confirm_password(class="control")}} 
+    {% for error in form.confirm_password.errors %}
+        <small style="color:red;">{{error}}</small><br>
+    {%endfor%}
+<br>
+<br>
+{# submit #}
+    {{form.submit(class="control button is-info")}}
+</form>
+
+{% endblock %}
