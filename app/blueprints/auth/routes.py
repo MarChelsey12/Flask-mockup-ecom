@@ -1,4 +1,3 @@
-
 from .import bp as auth
 from .forms import LoginForm, RegisterForm, EditProfileForm
 from flask import render_template, request, flash, redirect, url_for
@@ -58,6 +57,7 @@ def register():
     return render_template('register.html.j2', form = form)
 
 @auth.route('/edit_profile', methods=['GET','POST'])
+@login_required
 def edit_profile():
     form = EditProfileForm()
     if request.method == 'POST' and form.validate_on_submit():

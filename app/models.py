@@ -60,10 +60,11 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password, login_password)
     
     def from_dict(self, data):
-        for field in ["first_name","last_name","email","phone","address", "city", "state", "postal_code", "password"]:
-            if field in data:
-                # the object, the attribute, value
-                setattr(self, field, data[field])
+        self.first_name = data['first_name']
+        self.last_name = data['last_name']
+        self.email = data['email']
+        self.password = self.hash_password(data['password'])
+        self.icon = data['icon']
 
     def save(self):
         db.session.add(self)
