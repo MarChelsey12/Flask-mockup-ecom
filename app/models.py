@@ -1,5 +1,4 @@
 from app import db, login
-from app.blueprints.api.models import Item
 from flask_login import UserMixin
 from datetime import datetime as dt, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -63,8 +62,12 @@ class User(UserMixin, db.Model):
         self.first_name = data['first_name']
         self.last_name = data['last_name']
         self.email = data['email']
+        self.phone = data['phone']
+        self.address = data['address']
+        self.city = data['city']
+        self.state = data['state']
+        self.postal_code = data['postal_code']
         self.password = self.hash_password(data['password'])
-        self.icon = data['icon']
 
     def save(self):
         db.session.add(self)
@@ -74,12 +77,10 @@ class User(UserMixin, db.Model):
         self.cart.append(item)
         db.session.commit()
         
-        
     def item_to_delete(self, item):
         if item in self.cart:
             self.cart.remove(item)
             db.session.commit()
-        
     
     def clear_cart(self):
         while len(list(self.cart)) >0:
@@ -87,7 +88,6 @@ class User(UserMixin, db.Model):
                 self.cart.remove(item)
         db.session.commit()
         
-
 
 @login.user_loader
 def load_user(id):

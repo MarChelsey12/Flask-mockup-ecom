@@ -27,7 +27,7 @@ def create_app(config_class=Config):
     # into trying to go to a login required page
     login.login_view='auth.login'
     login.login_message = 'Please login before you continue.'
-    login.login_message_category='warning'
+    login.login_message_category='is-warning'
 
     from .blueprints.auth import bp as auth_bp
     app.register_blueprint(auth_bp)
